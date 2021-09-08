@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet"  href="./main.css"/> 
+    <link type="text/css" rel="stylesheet" href="./mobile.css">
+    <title>Cargo - Home</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div>
+            <div class="line"></div>
+            <span><b>hello@cargo.io</b></span>
+        </div>
+
+        <div>
+            <a class="navbar-link" href="#!">Product</a>
+            <a class="navbar-link active" href="#!">Home</a>
+            <a class="navbar-link" href="#!">Services</a>
+        </div>
+
+        <div>
+            <a class="navbar-link active padding-x-small" href="#!">FAQ</a>
+            <a class="button" href="#!">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="container">
+        <div class="headline">
+            <h1>Cargo <span>Design</span> Agency</h1>
+            <p> Ahead with 100+ Amazing clients with 20+ Country Served the best design materials
+            <div class="button-wrapper">
+                <a class="button" href="#!">Get Started</a>
+            </div>
+        </div>
+
+        <div class="aside-bar">
+            <h2>Case Studies</h2>
+            <a class="aside-bar-button" href="./posts/view-all-posts.html">View All</a>
+        </div>
+
+        <div id="posts-loading" class="loader">Loading...</div>
+
+        <div id="posts-wrapper" class="card-container"></div>
+            
+        </div>
+    </section>   
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="./main.js"></script>
+</html>

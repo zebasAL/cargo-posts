@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="../main.css">
+    <link type="text/css" rel="stylesheet" href="../mobile.css">
+    <title>Cargo - Post</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div>
+            <div class="line"></div>
+            <span><b>hello@cargo.io</b></span>
+        </div>
+
+        <div>
+            <a class="navbar-link" href="#!">Product</a>
+            <a class="navbar-link active" href="../index.html">Home</a>
+            <a class="navbar-link" href="#!">Services</a>
+        </div>
+
+        <div>
+            <a class="navbar-link active padding-x-small" href="#!">FAQ</a>
+            <a class="button" href="#!">Get Started</a>
+        </div>
+    </nav>
+    <!-- <div id="posts-loading" class="loader">Loading...</div> -->
+    
+    <div class="container">
+
+        <section id="post-full-view" class="view-case-study"></section>
+
+        <div class="comments-title">Comments</div>    
+            <div id="add-new-comment-container">
+                <form id="add-comment-form">
+                    <div class="container-info-new-comment">
+                        <input name="name" required type="text" class="new-comment-info name-content" placeholder="What's your name">
+                        <input name="email" required type="text" class="new-comment-info email-content" placeholder="Your email here">
+                    </div>
+
+                    <div class="content-new-comment">
+                        <input name="body" required title="Enter your comments here" type="text" class="input-new-comment" placeholder="Write here a new comment"/>
+                    </div>
+
+                    <div class="subtmit-btn-cointainer">
+                        <button type="submit" class="submit-new-comment-btn">SUBMIT</button>    
+                    </div>
+                </form>
+            </div>
+
+            <div id="comments-full-view"></div>
+
+        </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="./post-view.js"></script>
+</html>
