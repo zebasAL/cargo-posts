@@ -26,7 +26,7 @@
             <a class="button" href="#!">Get Started!</a>
         </div>
     </nav>
-    <!-- <div id="posts-loading" class="loader">Loading...</div> -->
+    <div id="posts-loading" class="loader">Loading...</div>
     
     <div class="container">
 
@@ -36,12 +36,12 @@
             <div id="add-new-comment-container">
                 <form id="add-comment-form">
                     <div class="container-info-new-comment">
-                        <input name="name" required type="text" class="new-comment-info name-content" placeholder="What's your name">
-                        <input name="email" required type="text" class="new-comment-info email-content" placeholder="Your email here">
+                        <input id="email-input" name="email" title="Enter a valid email" required type="email" class="new-comment-info email-content" placeholder="Your email here">
+                        <input id="name-input" name="name" required title="Enter your name" type="text" class="new-comment-info name-content" placeholder="What's your name">
                     </div>
 
                     <div class="content-new-comment">
-                        <input name="body" required title="Enter your comments here" type="text" class="input-new-comment" placeholder="Write here a new comment"/>
+                        <input id="body-input" name="body" required title="Enter your comments here" type="text" class="input-new-comment" placeholder="Write here a new comment"/>
                     </div>
 
                     <div class="subtmit-btn-cointainer">

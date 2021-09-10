@@ -28,20 +28,22 @@ function getPost(id) {
                     </div>
                 </section>
             `); 
+            $('#posts-loading').hide();
+
                 let comments = '';
                 
                         fetch(`https://gorest.co.in/public/v1/posts/${id}/comments`)
                         .then(function(response) { 
-                        if (!response.ok) {
-                        throw new Error(response.status);
-                        }
-                        return response.json(); })
+                            if (!response.ok) {
+                                throw new Error(response.status);
+                            }
+                            return response.json(); })
                         .then(function(commentResponse) {
 
                             commentResponse.data.forEach(function(comment, commentIndex) {
-                            console.log(comment)
+                        
                             comments = `${comments}
-                                <div class="comments-bar">
+                                <div id="comment-bar-${comment.id}" class="comments-bar">
                                         <div class="card-box-comments">
                                             <div class="title-card-comments">
                                                 <p>${comment.email}</p>
@@ -51,17 +53,20 @@ function getPost(id) {
                                                 <p id="comment-${comment.id}" class="description-comments">
                                                     ${comment.body}
                                                 </p>
-                                                <div>
+                                                <div class="comments-buttons">
                                                     ${(comment.body.length > 100)
                                                         ? (
-                                                        `<div><button data-id="${comment.id}" id="button-${comment.id}" class="read-more-button">Read More<i class="arrow-down"></i></button><button class="comment-delete-btn">Delete X</button></div>`
+                                                        `<div><button data-id="${comment.id}" id="button-${comment.id}" class="read-more-button">Read More<i class="arrow-down"></i></button></div>`
                                                     ) : ''}
+                                                    <button data-id="${comment.id}" id="delete-comment" class="comment-delete-btn">Delete X</button>
                                                 </div>
                                             </div>
                                         </div>
                                 </div>`
                                 if (commentResponse.data.length -1 === commentIndex) {
-                                $('#comments-full-view').append(comments)
+                                $('#comments-full-view').prepend(comments)
+                                $('#add-comment-form').show()
+                                $('.comments-title').show()
                                 }
                             })
                         });             
@@ -85,48 +90,80 @@ $(document).ready(function() {
     getPost(id)
 });
 
+
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const postId = urlParams.get('id');
+
 $(document).on('submit', '#add-comment-form', function(event) {
     event.preventDefault();
-    const values = $(this).serialize();
 
+    const values = $(this).serialize();
     const fields = new URLSearchParams(values);
 
     const name = fields.get('name');
     const email = fields.get('email');
     const body = fields.get('body');
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const id = urlParams.get('id');
-
     const data = { 
-        // 'id': 72,
-        // 'post_id': id,
-        'name': email,
-        'email': name,
+        'name': name,
+        'email': email,
         'body': body
     };
 
-    fetch(`https://gorest.co.in/public/v1/posts/${id}/comments`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        Authentication: '7474a39a8f8d07fa4adf0e58a2357b51b0342e6da64531b61c32230816539a7d'
-
-    },
+    fetch(`https://gorest.co.in/public/v1/posts/${postId}/comments`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 7474a39a8f8d07fa4adf0e58a2357b51b0342e6da64531b61c32230816539a7d'
+        },
         body: JSON.stringify(data),
     })
+    .then(function(response) { 
+        if (!response.ok) {
+            throw new Error(response.status);
+        }
+        return response.json();
+    })
+    .then(function(newCommentBack) {
+        
+        $('#email-input').val('');
+        $('#name-input').val('');
+        $('#body-input').val('');
 
-    .then(response => response.json())
-    .then(data => {
-    console.log('Success:', data);
+           
+            commentSubmited = `
+                <div id="comment-bar-${newCommentBack.data.id}" class="comments-bar">
+                    <div class="card-box-comments">
+                        <div class="title-card-comments">
+                            <p>${newCommentBack.data.email}</p>
+                        </div>
+                        <div>
+                            <h2>${newCommentBack.data.name}</h2>
+                            <p id="comment-${newCommentBack.data.id}" class="description-comments">
+                                ${newCommentBack.data.body}
+                            </p>
+                            <div class="comments-buttons">
+                                ${(newCommentBack.data.body.length > 100)
+                                    ? (
+                                    `<div><button data-id="${newCommentBack.data.id}" id="button-${newCommentBack.data.id}" class="read-more-button">Read More<i class="arrow-down"></i></button></div>`
+                                ) : ''}
+                                <button data-id="${newCommentBack.data.id}" id="delete-comment" class="comment-delete-btn">Delete X</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+                    
+            $('#comments-full-view').prepend(commentSubmited);
+        
     })
     .catch((error) => {
-    console.error('Error:', error);
-
+        alert('Fill in valid values');
     });
-
 });
+
+
 
 $(document).on('click', '.read-more-button', function() {
     const commentId = $(this).attr('data-id');
@@ -143,3 +180,22 @@ $(document).on('click', '.read-more-button', function() {
 });
 
 
+
+$(document).on('click', '.comment-delete-btn', function() {
+    
+    const commentId = $(this).attr('data-id');
+       
+    fetch(`https://gorest.co.in/public/v1/comments/${commentId}`, {
+        method: 'DELETE', 
+        headers: {
+        'Content-type': 'application/json; charset=UTF-8', 
+        Authorization: 'Bearer 7474a39a8f8d07fa4adf0e58a2357b51b0342e6da64531b61c32230816539a7d' // Indicates the content 
+        },
+        body: null
+    })
+    .then(function(response) {})
+    .then(data => {
+        $(`#comment-bar-${commentId}`).hide();  
+    })
+
+});

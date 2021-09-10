@@ -307,9 +307,10 @@ a {
 }
 
 /* comment title and submit a new commet form */
-.comments-title{
+.comments-title {
     border-bottom: 1.5px solid;
     margin: 50px 0px 10px 0px;
+    display: none;
 }
 
   .content-new-comment {
@@ -317,9 +318,13 @@ a {
     margin: 5px 0px 10px 0px;
 }
 
+#add-comment-form {
+    display: none;
+}
+
 .container-info-new-comment {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 .new-comment-info {
@@ -395,12 +400,16 @@ input:focus {
     margin: 5px 0px;
 }
 
+.comments-buttons {
+    display: flex;
+}
+
 .read-more-button   {
     color: rgb(204 255 239);
     background-color: rgb(0 0 0);
     font-family: 'Poppins';
     border: none;
-    padding: 0px;
+    padding: 0px 10px 0px 0px;
     cursor: pointer;
 }
 
@@ -430,7 +439,7 @@ input:focus {
 .comment-delete-btn {
     background: #000;
     color: rgb(204 255 239);
-    padding: 0px 20px;
+    padding: 0;
     white-space: nowrap;
     transition: background ease .5s;
     border: none;
