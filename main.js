@@ -28,7 +28,7 @@ function getPosts() {
                                 </p>
                             </div>
                             <div>
-                                <a class="learn-more-link" href="./posts/view-case-study.html">View Case Study <img class="icon" src="./assets/east_white_24dp.svg"></a>
+                                <a class="learn-more-link" href="./posts/view-case-study.html?id=${post.id}">View Case Study <img class="icon" src="./assets/east_white_24dp.svg"></a>
                             </div>
                         </div>
                     `;

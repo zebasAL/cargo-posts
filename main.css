@@ -288,7 +288,8 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     white-space: nowrap;
     overflow-wrap: break-word;
 }
@@ -313,6 +314,10 @@ a {
     display: none;
 }
 
+#content-width {
+    margin: 0px 25px 0px 25px;
+}
+
   .content-new-comment {
     padding: 0px 0px 5px 0px;
     margin: 5px 0px 10px 0px;
@@ -321,6 +326,7 @@ a {
 #add-comment-form {
     display: none;
 }
+
 
 .container-info-new-comment {
     display: flex;
@@ -344,6 +350,11 @@ a {
 
 .new-comment-info.email-content {
     color: #bfbfca
+}
+
+p {
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .input-new-comment {

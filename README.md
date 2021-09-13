@@ -1,3 +1,17 @@
 
-<img class="image-readme" src="https://i.imgur.com/PEeRK8b.png?2">
 
+<a class"link" href"https://zebasal.github.io/cargo-posts/index.html#!">https://zebasal.github.io/cargo-posts/index.html#!</a>
+
+
+<img class="image-readme" src="https://i.imgur.com/VdGjhFN.jpg">
+
+<img class="image-readme" src="https://i.imgur.com/MrUcBqU.jpg">
+
+<img class="image-readme" src="https://i.imgur.com/ZFA4d3e.jpg">
+
+<style>
+    .image-readme .link {
+        display: flex;
+        justify-content: center;
+    }
+</style>
