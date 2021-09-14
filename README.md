@@ -1,6 +1,6 @@
 
 
-<a class"link" href"https://zebasal.github.io/cargo-posts/index.html#!">https://zebasal.github.io/cargo-posts/index.html#!</a>
+https://zebasal.github.io/cargo-posts/index.html#!
 
 
 <img class="image-readme" src="https://i.imgur.com/VdGjhFN.jpg">
