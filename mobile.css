@@ -34,6 +34,10 @@
     
     .headline h1 {
         font-size: 40px;
+    } 
+
+    .full-post {
+        text-align: left;
     }
 
 }
@@ -75,7 +79,29 @@
 /*1 cardbox per line*/
 @media only screen and (max-width: 550px) {
     .navbar {
-        flex-direction: column;
+        flex-direction: column-reverse;
+        padding: 15px 45px;
+    }
+
+    .navbar-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar-all-links {
+        justify-content: center;
+        display: flex;
+        padding: 20px 0px 0px 0px;
+    }
+
+    .navbar div {
+        padding: 5px 0px;
+    }
+
+    .navbar-email {
+        display: flex;
+        justify-content: center;
     }
 
     .container {
@@ -99,5 +125,6 @@
     
     .headline h1 {
         font-size: 40px;
+        margin: 0px;
     }
 }

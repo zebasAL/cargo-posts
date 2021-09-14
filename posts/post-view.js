@@ -1,4 +1,11 @@
 
+const limitWidth = $(`#content-width`).width();
+console.log(limitWidth)
+const textWidth = $(`#post-full-view`).width();
+console.log(textWidth)
+
+
+
 function getPost(id) {
 
     // Get every post
@@ -27,57 +34,63 @@ function getPost(id) {
                         <p>${userResponse.data.email}</p>
                     </div>
                 </section>
-            `); 
+            `);
             $('#posts-loading').hide();
-
                 let comments = '';
                 
-                        fetch(`https://gorest.co.in/public/v1/posts/${id}/comments`)
-                        .then(function(response) { 
-                            if (!response.ok) {
-                                throw new Error(response.status);
-                            }
-                            return response.json(); })
-                        .then(function(commentResponse) {
+            fetch(`https://gorest.co.in/public/v1/posts/${id}/comments`)
+            .then(function(response) { 
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+                return response.json(); })
+            .then(function(commentResponse) {
 
-                            commentResponse.data.forEach(function(comment, commentIndex) {
-                        
-                            comments = `${comments}
-                                <div id="comment-bar-${comment.id}" class="comments-bar">
-                                        <div class="card-box-comments">
-                                            <div class="title-card-comments">
-                                                <p>${comment.email}</p>
-                                            </div>
-                                            <div>
-                                                <h2>${comment.name}</h2>
-                                                <p id="comment-${comment.id}" class="description-comments">
-                                                    ${comment.body}
-                                                </p>
-                                                <div class="comments-buttons">
-                                                    ${(comment.body.length > 100)
-                                                        ? (
-                                                        `<div><button data-id="${comment.id}" id="button-${comment.id}" class="read-more-button">Read More<i class="arrow-down"></i></button></div>`
-                                                    ) : ''}
-                                                    <button data-id="${comment.id}" id="delete-comment" class="comment-delete-btn">Delete X</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>`
-                                if (commentResponse.data.length -1 === commentIndex) {
-                                $('#comments-full-view').prepend(comments)
-                                $('#add-comment-form').show()
-                                $('.comments-title').show()
-                                }
-                            })
-                        });             
-                    })
-                    .catch(function(err) {
-                    console.log('error')
-        })
+                commentResponse.data.forEach(function(comment, commentIndex) {
+
+                    comments = `${comments}
+                        <div id="comment-bar-${comment.id}" class="comments-bar">
+                            <div class="card-box-comments">
+                                <div class="title-card-comments">
+                                    <p>${comment.email}</p>
+                                </div>
+                                <div>
+                                    <h2>${comment.name}</h2>
+                                    <p id="comment-${comment.id}" class="description-comments">
+                                        ${comment.body}
+                                    </p>
+                                    <div class="comments-buttons">
+                                        ${((comment.body.length * 7.5) > limitWidth )
+                                            ? (
+                                            `<div><button data-id="${comment.id}" id="button-${comment.id}" class="read-more-button">Read More<i class="arrow-down"></i></button></div>`
+                                        ) : ''}
+                                        <button data-id="${comment.id}" id="delete-comment" class="comment-delete-btn">Delete X</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+
+                    if (commentResponse.data.length -1 === commentIndex) {
+                    $('#comments-full-view').prepend(comments)
+                    $('#add-comment-form').show()
+                    $('.comments-title').show()
+                    }
+                })
+                $('#add-comment-form').show()
+                $('.comments-title').show()
+                $('#comments-full-view').append('<h3>Comments not found</h3>');
+                if (commentResponse.data.length > 0) {
+                    $('div#comments-full-view h3').hide();
+                };
+            })
+            .catch(function(err) {
+            console.log(err)
+            });
+            
+        });
     })
-
     .catch(function(error) {
-        window.location.replace("///C:/Users/zebas/Desktop/cargo-landing/index.html");
+        window.location.replace("/Users/zebas/Desktop/cargo-landing/index.html");
     });
 }
 
@@ -89,7 +102,6 @@ $(document).ready(function() {
     // getPost();
     getPost(id)
 });
-
 
 
 const queryString = window.location.search;
@@ -122,7 +134,7 @@ $(document).on('submit', '#add-comment-form', function(event) {
     })
     .then(function(response) { 
         if (!response.ok) {
-            throw new Error(response.status);
+            throw new Error(JSON.stringify(response.data));
         }
         return response.json();
     })
@@ -156,13 +168,17 @@ $(document).on('submit', '#add-comment-form', function(event) {
                 </div>`
                     
             $('#comments-full-view').prepend(commentSubmited);
-        
-    })
-    .catch((error) => {
-        alert('Fill in valid values');
-    });
-});
 
+            if ($(".card-box-comments")[0]) {
+                $('div#comments-full-view h3').hide()
+            }
+    })
+    
+    .catch((error) => {
+        alert('Message is too long, try to shorten');
+    });
+    
+});
 
 
 $(document).on('click', '.read-more-button', function() {
@@ -180,7 +196,6 @@ $(document).on('click', '.read-more-button', function() {
 });
 
 
-
 $(document).on('click', '.comment-delete-btn', function() {
     
     const commentId = $(this).attr('data-id');
@@ -194,8 +209,14 @@ $(document).on('click', '.comment-delete-btn', function() {
         body: null
     })
     .then(function(response) {})
-    .then(data => {
-        $(`#comment-bar-${commentId}`).hide();  
+    .then(function(data) {
+        $(`#comment-bar-${commentId}`).remove();  
+        if (($(".card-box-comments").length === 0)) {
+            $('div#comments-full-view h3').show()
+        } else {
+            $('div#comments-full-view h3').hide()
+        } 
     })
 
 });
+

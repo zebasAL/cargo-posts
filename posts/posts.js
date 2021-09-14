@@ -39,7 +39,7 @@ function getPosts(pageUrl = currentPage) {
                 fetch(`https://gorest.co.in/public/v1/users/${post.user_id}`)
                 .then(function(response) { return response.json(); })
                 .then(function(userResponse) {
-
+                   
                     // concatenate the html
                     aggregator = `${aggregator}
                         <div class="card-box">
@@ -54,7 +54,7 @@ function getPosts(pageUrl = currentPage) {
                                 </p>
                             </div>
                             <div>
-                                <a class="learn-more-link" href="./view-case-study.html">View Case Study <img class="icon" src="../assets/east_white_24dp.svg">
+                                <a class="learn-more-link" href="./view-case-study.html?id=${post.id}">View Case Study <img class="icon" src="../assets/east_white_24dp.svg">
                                     
                                 </a>
                             </div>
