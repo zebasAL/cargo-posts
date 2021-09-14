@@ -127,4 +127,9 @@
         font-size: 40px;
         margin: 0px;
     }
+
+    .aside-bar {
+        padding-top: 0;
+    }
+
 }
