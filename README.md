@@ -7,5 +7,5 @@ https://zebasal.github.io/cargo-posts/index.html#!
 
 <img class="image-readme" src="https://i.imgur.com/MrUcBqU.jpg">
 
-<img class="image-readme" src="https://i.imgur.com/PCfWaqJ.jpg">
+<img class="image-readme" src="https://imgur.com/Y6e5elE.jpg">
 
